@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node src/main.js",
     "lint:ci": "eslint .",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "lint:ci_prettier": "prettier . --check",
+    "lint_prettier": "prettier . --write"
   },
   "keywords": [],
   "license": "ISC",
