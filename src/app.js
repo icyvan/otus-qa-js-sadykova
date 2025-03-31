@@ -38,3 +38,22 @@ export const getTotal = (items = [], discount = 0) => {
   const total = items.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
   return total * (1 - discount / 100);
 };
+
+
+//Домашнее задание: Объекты и массивы
+
+const scores = {
+  Anna: 10,
+  Olga: 1,
+  Ivan: 5
+};
+
+const getScore = scoresObject => {
+  let sum = 0;
+  for (let key in scoresObject) {
+    sum = sum + scoresObject[key];
+  }
+  return sum;
+};
+
+console.log(getScore(scores));
