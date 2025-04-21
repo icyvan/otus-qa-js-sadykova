@@ -1,5 +1,5 @@
 import apiHandler from './api/apiHandler';
-import { users, config } from './config/config';
+import { variables, config } from './config/config';
 
 describe('apiHandler', () => {
   test('Success exists', () => userPost());
@@ -10,19 +10,19 @@ describe('apiHandler', () => {
 });
 
 async function userPost() {
-  const { data, response } = await apiHandler('POST', users.user, 'Account/v1/User');
+  const { data, response } = await apiHandler('POST', variables.user, 'Account/v1/User');
   expect(data.message).toBe('User exists!');
   expect(response.status).toEqual(406);
 }
 
 async function userPassword() {
-  const { data, response } = await apiHandler('POST', users.user2, 'Account/v1/User');
+  const { data, response } = await apiHandler('POST', variables.user2, 'Account/v1/User');
   expect(data.message).toBe(config.unvalidPasswordMessage);
   expect(response.status).toEqual(400);
 }
 
 async function createUser() {
-  const { data, response } = await apiHandler('POST', users.user3, 'Account/v1/User');
+  const { data, response } = await apiHandler('POST', variables.user3, 'Account/v1/User');
   if (data.message) {
     expect(data.message).toBe('User create!');
   }
@@ -30,14 +30,14 @@ async function createUser() {
 }
 
 async function tokenError() {
-  const { data, response } = await apiHandler('POST', users.user4, 'Account/v1/GenerateToken');
+  const { data, response } = await apiHandler('POST', variables.user4, 'Account/v1/GenerateToken');
   expect(data.result).toBe('User authorization failed.');
   expect(response.status).toEqual(200);
 }
 
 async function tokenSuccess() {
-  await apiHandler('POST', users.user5, 'Account/v1/User');
-  const { data, response } = await apiHandler('POST', users.user5, 'Account/v1/GenerateToken');
+  await apiHandler('POST', variables.user5, 'Account/v1/User');
+  const { data, response } = await apiHandler('POST', variables.user5, 'Account/v1/GenerateToken');
   expect(data.result).toBe('User authorized successfully.');
   expect(response.status).toEqual(200);
 }
