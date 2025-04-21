@@ -3,16 +3,16 @@ import { variables } from './config/config';
 
 describe('apiHandler', () => {
   test('User success authorized', () => successAuthorized());
-  test('Delete user', () => deleteUser(variables.user5));
-  test('Get user', () => getUser(variables.user3));
-  test('Create book', () => createBook(variables.user3));
-  test('Update book', () => updateBook(variables.user3));
-  test('Get book', () => getBook(variables.user3));
-  test('Delete book', () => deleteBook(variables.user3));
+  test('Delete user', () => deleteUser(variables.testDeleteUser));
+  test('Get user', () => getUser(variables.user));
+  test('Create book', () => createBook(variables.user));
+  test('Update book', () => updateBook(variables.user));
+  test('Get book', () => getBook(variables.user));
+  test('Delete book', () => deleteBook(variables.user));
 });
 
 async function successAuthorized() {
-  const response = await instance.post('Account/v1/Authorized', variables.user);
+  const response = await instance.post('Account/v1/Authorized', variables.testUserSuccessAuthorized);
   expect(response.data).toBe(true);
   expect(response.status).toEqual(200);
 }
@@ -54,7 +54,7 @@ async function getUser(user) {
 
 async function createBook(user) {
   await instance.post('Account/v1/User', user);
-  const [userID, token] = await Promise.all([loginUser(user), generateToken(variables.user3)]);
+  const [userID, token] = await Promise.all([loginUser(user), generateToken(variables.user)]);
 
   const response = await instance.post(
     'BookStore/v1/Books',
@@ -75,7 +75,7 @@ async function createBook(user) {
 
 async function updateBook(user) {
   await instance.post('Account/v1/User', user);
-  const [userID, token] = await Promise.all([loginUser(user), generateToken(variables.user3)]);
+  const [userID, token] = await Promise.all([loginUser(user), generateToken(variables.user)]);
 
   const response = await instance.put(
     `BookStore/v1/Books/${variables.collectionOfIsbns[0].isbn}`,
@@ -95,7 +95,7 @@ async function updateBook(user) {
 
 async function getBook(user) {
   await instance.post('Account/v1/User', user);
-  const token = await generateToken(variables.user3);
+  const token = await generateToken(variables.user);
 
   const response = await instance.get(`BookStore/v1/Book?ISBN=${variables.collectionOfIsbns[0].isbn}`, {
     headers: {

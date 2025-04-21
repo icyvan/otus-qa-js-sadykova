@@ -4,23 +4,15 @@ export const config = {
 };
 
 export const variables = {
-  user: {
+  testUserSuccessAuthorized: {
     userName: 'testuser12355',
     password: 'TestPass123!'
   },
-  user2: {
-    userName: 'testuser123',
-    password: 'TestPass123'
-  },
-  user3: {
+  user: {
     userName: 'test12312e12',
     password: 'Test12asd3New123112e3!'
   },
-  user4: {
-    userName: 'testtokenerror',
-    password: 'TestPass123!'
-  },
-  user5: {
+  testDeleteUser: {
     userName: 'testtoken578',
     password: 'TestPaasdsass123987!'
   },
