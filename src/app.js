@@ -3,7 +3,9 @@
  * @param {string} name
  * @returns {boolean}
  */
-export const nameIsValid = name => typeof name === 'string' && name.length >= 2 && /^[a-z]+$/.test(name);
+export const nameIsValid = (name) =>{
+  typeof name === 'string' && name.length >= 2 && /^[a-z]+$/.test(name);
+};
 
 /**
  * Удаление пробелов из строки
@@ -38,7 +40,6 @@ export const getTotal = (items = [], discount = 0) => {
   const total = items.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
   return total * (1 - discount / 100);
 };
-
 
 //Домашнее задание: Объекты и массивы
 

@@ -20,5 +20,11 @@ export const variables = {
     {
       isbn: '9781449325862'
     }
+  ],
+  isbnToUpdate: [
+    {
+      isbn: '9781449331818',
+      userId: '23365272-f285-48d5-ba6e-5f8f161bd8a6'
+    }
   ]
 };
