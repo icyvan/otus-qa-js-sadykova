@@ -3,25 +3,28 @@ export const config = {
   unvalidPasswordMessage: `Passwords must have at least one non alphanumeric character, one digit ('0'-'9'), one uppercase ('A'-'Z'), one lowercase ('a'-'z'), one special character and Password must be eight characters or longer.`
 };
 
-export const users = {
-  user: {
+export const variables = {
+  testUserSuccessAuthorized: {
     userName: 'testuser12355',
     password: 'TestPass123!'
   },
-  user2: {
-    userName: 'testuser123',
-    password: 'TestPass123'
-  },
-  user3: {
+  user: {
     userName: 'test12312e12',
     password: 'Test12asd3New123112e3!'
   },
-  user4: {
-    userName: 'testtokenerror',
-    password: 'TestPass123!'
-  },
-  user5: {
+  testDeleteUser: {
     userName: 'testtoken578',
     password: 'TestPaasdsass123987!'
-  }
+  },
+  collectionOfIsbns: [
+    {
+      isbn: '9781449325862'
+    }
+  ],
+  isbnToUpdate: [
+    {
+      isbn: '9781449331818',
+      userId: '23365272-f285-48d5-ba6e-5f8f161bd8a6'
+    }
+  ]
 };

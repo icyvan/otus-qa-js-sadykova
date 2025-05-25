@@ -1,49 +1,40 @@
-import { instance } from './api/instanceAxios';
-import { users } from './config/config';
+import { variables } from './config/config';
+import {successAuthorized, deleteUser, getUser, createBook, updateBook, getBook, deleteBook} from './api/apiRequests';
 
 describe('apiHandler', () => {
-  test('User success authorized', () => successAuthorized());
-  test('Delete user', () => deleteUser(users.user5));
-  test('Get user', () => getUser(users.user3));
+  test('User success authorized', async () => {
+    const response = await successAuthorized(variables.user);
+    expect(response.data).toBe(true);
+    expect(response.status).toEqual(200);
+  });
+  test('Delete user', async () => {
+    const data = await deleteUser(variables.testDeleteUser)
+    expect(data.data).toBe('');
+    expect(data.status).toEqual(204);
+  });
+  test('Get user', async () => {
+    const data = await getUser(variables.user)
+    expect(data.statusText).toBe('OK');
+    expect(data.status).toEqual(200);
+  });
+  test('Create book', async () => {
+    const response = await createBook(variables.user)
+    expect(response.status).toEqual(201);
+    expect(response.message).toBe(undefined);
+    expect(Array.isArray(response.data.books)).toBe(true);
+  });
+  test('Update book', async () => {
+    const response = await updateBook(variables.user)
+    expect(response.data.books[0].isbn).toBe(variables.isbnToUpdate[0].isbn);
+    expect(response.status).toEqual(200);
+  });
+  test('Get book', async () => {
+    const response = await getBook(variables.user)
+    expect(response.statusText).toBe('OK');
+    expect(response.status).toEqual(200);
+  });
+  test('Delete book', async () => {
+    const response = await deleteBook(variables.user)
+    expect(response.status).toEqual(204);
+  });
 });
-
-async function successAuthorized() {
-  const response = await instance.post('Account/v1/Authorized', users.user);
-  expect(response.data).toBe(true);
-  expect(response.status).toEqual(200);
-}
-
-//Создание пользователя, получение токена, получение id пользователя, удаление пользователя
-async function generateToken(user) {
-  const response = await instance.post('Account/v1/GenerateToken', user);
-  return response.data.token;
-}
-async function loginUser(user) {
-  const authUser = await instance.post('Account/v1/Login', user);
-  return authUser.data.userId;
-}
-async function deleteUser(user) {
-  await instance.post('Account/v1/User', user);
-  const [userID, token] = await Promise.all([loginUser(user), generateToken(user)]);
-  const data = await instance.delete(`Account/v1/User/${userID}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-
-  expect(data.data).toBe('');
-  expect(data.status).toEqual(204);
-}
-
-//Получение информации о пользователе
-async function getUser(user) {
-  await instance.post('Account/v1/User', user);
-  const [userID, token] = await Promise.all([loginUser(user), generateToken(user)]);
-  const data = await instance.get(`Account/v1/User/${userID}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-  expect(data.statusText).toBe('OK');
-  expect(data.status).toEqual(200);
-}
