@@ -1,4 +1,4 @@
-import {test, expect} from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 const url = 'https://somovhotel.ru/';
 
@@ -23,7 +23,7 @@ test('Проверка всплывающего окна с обратной с�
 test('Переход на страницу бронирования номеров', async ({ page }) => {
   await page.goto(url);
   await page.locator('header .js-open-booking').click();
-  await page.getByRole('button', {name:'Смотреть номера'}).click();
+  await page.getByRole('button', { name: 'Смотреть номера' }).click();
   await expect(page.locator('h1.page-title__title')).toHaveText('Бронирование номеров');
 });
 
