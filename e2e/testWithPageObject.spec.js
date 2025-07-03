@@ -1,8 +1,8 @@
 const { test, expect } = require('@playwright/test');
-const { LoginPage } = require('../pages/loginPage');
-const { InventoryPage } = require('../pages/inventoryPage');
-const { CheckoutPage } = require('../pages/checkoutPage');
-const { CardPage } = require('../pages/cardPage');
+const { LoginPage } = require('../pages/pageObjectHomework/loginPage');
+const { InventoryPage } = require('../pages/pageObjectHomework/inventoryPage');
+const { CheckoutPage } = require('../pages/pageObjectHomework/checkoutPage');
+const { CardPage } = require('../pages/pageObjectHomework/cardPage');
 
 test.beforeEach(async ({ page }) => {
   const loginPage = new LoginPage(page);
