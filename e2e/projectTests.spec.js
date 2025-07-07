@@ -2,8 +2,10 @@ import { expect, test } from '@playwright/test';
 import { createProductPage } from '../pages/pageObjectProject/productPage';
 import { createConsentCookies } from '../pages/pageObjectProject/pageElement/consentCookies';
 import { createHomePage } from '../pages/pageObjectProject/homePage';
-import { createAccountPage} from '../pages/pageObjectProject/createAccountPage';
-import { createSignInPage, cresteSignInPage } from '../pages/pageObjectProject/SignInPage';
+import { createAccountPage } from '../pages/pageObjectProject/createAccountPage';
+import { createSignInPage } from '../pages/pageObjectProject/SignInPage';
+import { searchBar } from '../pages/pageObjectProject/pageElement/searchBar';
+import { createCartPage } from '../pages/pageObjectProject/cartPage';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('https://magento.softwaretestingboard.com/');
@@ -39,3 +41,20 @@ test('Вход в аккаунт', async ({ page }) => {
   await autorization.signIn('ladybug@gmail.com', 'LadyBug123');
   await expect(autorization.loggedIn).toHaveText('Welcome, Lady Bug!');
 });
+
+test('Поиск товаров', async ({ page }) => {
+  const searchElement = searchBar(page);
+  await searchElement.goToSearch('jacket');
+  await expect(searchElement.searchResults).toHaveCount(12);
+});
+
+test('Удаление товара из корзины', async ({ page }) => {
+  const productPage = createProductPage(page);
+  const homePage = createHomePage(page);
+  const myCart = createCartPage(page);
+  await homePage.clickProductItem();
+  await productPage.addToCart();
+  await myCart.removeItemFromCart();
+  await expect(myCart.successRemove).toBeVisible();
+});
+
