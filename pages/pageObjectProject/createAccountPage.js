@@ -12,12 +12,12 @@ export function createAccountPage(page) {
     await createAccount.click();
   }
 
-  async function fillCreateForm(firstName, lastName, email, password, confirmPassword){
-    await firstNameInput.fill(firstName);
-    await lastNameInput.fill(lastName);
-    await emailInput.fill(email);
-    await passwordInput.fill(password);
-    await confirmPasswordInput.fill(confirmPassword);
+  async function fillCreateForm(variables){
+    await firstNameInput.fill(variables.createAccount.firstName);
+    await lastNameInput.fill(variables.createAccount.lastName);
+    await emailInput.fill(variables.createAccount.email());
+    await passwordInput.fill(variables.createAccount.password);
+    await confirmPasswordInput.fill(variables.createAccount.confirmPassword);
     await createAccountButton.click();
   }
 

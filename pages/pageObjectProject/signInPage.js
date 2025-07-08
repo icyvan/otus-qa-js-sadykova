@@ -9,9 +9,9 @@ export function createSignInPage(page) {
     await signInPage.click();
   }
 
-  async function signIn(email, password) {
-    await emailInput.fill(email);
-    await passwordInput.fill(password);
+  async function signIn(variables) {
+    await emailInput.fill(variables.singIn.email);
+    await passwordInput.fill(variables.singIn.password);
     await signInButton.click();
   }
   return {

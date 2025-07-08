@@ -15,19 +15,19 @@ export function createOrderPage(page) {
   const placeOrderButton = page.locator('button:has-text("Place Order")');
   const successCheckout = page.locator('span.base[data-ui-id="page-title-wrapper"]');
 
-  async function fillOrderPage(options) {
-    await emailAddress.fill(options.email);
-    await firstName.fill(options.firstname);
-    await lastName.fill(options.lastname);
-    await streetAddress1.fill(options.streetaddress[0]);
-    await streetAddress2.fill(options.streetaddress[1]);
-    await streetAddress3.fill(options.streetaddress[2]);
-    await city.fill(options.cityname);
-    await state.selectOption(options.statename);
-    await zipCode.fill(options.zipcode);
-    await country.selectOption(options.countryname);
-    await phoneNumber.fill(options.telephone);
-    await shippingMethod.check(options.shippingmethod);
+  async function fillOrderPage(variables) {
+    await emailAddress.fill(variables.orderCheckout.email);
+    await firstName.fill(variables.orderCheckout.firstname);
+    await lastName.fill(variables.orderCheckout.lastname);
+    await streetAddress1.fill(variables.orderCheckout.streetaddress[0]);
+    await streetAddress2.fill(variables.orderCheckout.streetaddress[1]);
+    await streetAddress3.fill(variables.orderCheckout.streetaddress[2]);
+    await city.fill(variables.orderCheckout.cityname);
+    await state.selectOption(variables.orderCheckout.statename);
+    await zipCode.fill(variables.orderCheckout.zipcode);
+    await country.selectOption(variables.orderCheckout.countryname);
+    await phoneNumber.fill(variables.orderCheckout.telephone);
+    await shippingMethod.check(variables.orderCheckout.hippingmethod);
     await buttonNext.click();
     await placeOrderButton.click();
   }
