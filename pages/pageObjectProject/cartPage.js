@@ -3,6 +3,7 @@ export function createCartPage(page) {
   const removeButton = page.locator('a.action.delete');
   const confirmRemove = page.getByRole('button', { name: 'OK' });
   const successRemove = page.locator('strong.subtitle.empty');
+  const checkoutButton = page.locator('[id="top-cart-btn-checkout"]');
 
   async function removeItemFromCart() {
     await page.waitForTimeout(5000);
@@ -12,8 +13,15 @@ export function createCartPage(page) {
     await page.waitForTimeout(2000);
   }
 
+  async function clickCheckout() {
+    await page.waitForTimeout(5000);
+    await cartButton.click();
+    await checkoutButton.click();
+  }
+
   return {
     removeItemFromCart,
-    successRemove
+    successRemove,
+    clickCheckout
   };
 }

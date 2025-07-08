@@ -3,13 +3,13 @@ export function createHomePage(page) {
   const banner = page.locator('img[src*="home-main.jpg"]');
   const productItem = page.locator('.product-item-info');
 
-  async function clickProductItem() {
+  async function openFirstProduct() {
     await productItem.first().click();
   }
 
   return {
     title,
     banner,
-    clickProductItem
+    openFirstProduct
   };
 }

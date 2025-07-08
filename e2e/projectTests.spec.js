@@ -6,6 +6,8 @@ import { createAccountPage } from '../pages/pageObjectProject/createAccountPage'
 import { createSignInPage } from '../pages/pageObjectProject/SignInPage';
 import { searchBar } from '../pages/pageObjectProject/pageElement/searchBar';
 import { createCartPage } from '../pages/pageObjectProject/cartPage';
+import { createOrderPage } from '../pages/pageObjectProject/orderPage';
+import { options } from '../constants/orderCheckout';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('https://magento.softwaretestingboard.com/');
@@ -22,9 +24,18 @@ test('Заголовок и баннер на главной странице', 
 test('Добавление товара корзину', async ({ page }) => {
   const productPage = createProductPage(page);
   const homePage = createHomePage(page);
-  await homePage.clickProductItem();
+  await homePage.openFirstProduct();
   await productPage.addToCart();
   await expect(productPage.successMessage).toBeVisible();
+});
+
+test('Написать отзыв', async ({ page }) => {
+  const homePage = createHomePage(page);
+  const productPage = createProductPage(page);
+  await homePage.openFirstProduct();
+  await productPage.writeReview();
+  await productPage.successSendReview.waitFor({ state: 'visible', timeout: 10000 });
+  await expect(productPage.successSendReview).toBeVisible();
 });
 
 test('Создание аккаунта', async ({ page }) => {
@@ -52,9 +63,20 @@ test('Удаление товара из корзины', async ({ page }) => {
   const productPage = createProductPage(page);
   const homePage = createHomePage(page);
   const myCart = createCartPage(page);
-  await homePage.clickProductItem();
+  await homePage.openFirstProduct();
   await productPage.addToCart();
   await myCart.removeItemFromCart();
   await expect(myCart.successRemove).toBeVisible();
 });
 
+test('Оформление заказа', async ({ page }) => {
+  const productPage = createProductPage(page);
+  const homePage = createHomePage(page);
+  const myCart = createCartPage(page);
+  await homePage.openFirstProduct();
+  await productPage.addToCart();
+  await myCart.clickCheckout();
+  const orderPage = createOrderPage(page);
+  await orderPage.fillOrderPage(options);
+  await expect(orderPage.successCheckout).toHaveText('Thank you for your purchase!');
+});
