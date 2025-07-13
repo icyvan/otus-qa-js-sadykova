@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
-import { createLoginPage } from '../pages/loginPageFunction';
-import { createInventoryPage } from '../pages/inventoryPageFunction';
-import { createCardPage } from '../pages/cardPageFunction';
-import { createCheckoutPage } from '../pages/checkoutPageFunction';
+import { createLoginPage } from '../pages/pageObjectHomework/loginPageFunction';
+import { createInventoryPage } from '../pages/pageObjectHomework/inventoryPageFunction';
+import { createCardPage } from '../pages/pageObjectHomework/cardPageFunction';
+import { createCheckoutPage } from '../pages/pageObjectHomework/checkoutPageFunction';
 
 test.beforeEach(async ({ page }) => {
   const loginPage = createLoginPage(page);
